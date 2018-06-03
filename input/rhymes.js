@@ -5,16 +5,14 @@
 let unirest = require('unirest');
 
 module.exports = (word, cb) => {
-	unirest.get("https://thundercomb-poetry-db-v1.p.mashape.com/title/" + word)
-		.header("X-Mashape-Key", "uwLQtm1hwMmshgFUzTOXZuxE6ynXp1GnZCnjsnEufzrXKTcDN9")
+	unirest.get(`https://api.datamuse.com/words?rel_rhy=${word}`)
+		.header("Accept", "application/json")
 		.end(function (result) {
 			if (result.status === 200 && result.ok && !result.error) {
-				console.log("https://thundercomb-poetry-db-v1.p.mashape.com/title/" + word);
 				let results = [];
 				results = results
-					.concat(...result.body)
-						// .map(x => x.titles)
-					.filter(x => x.lines.length < 16);
+					.concat(...result.body
+						.filter(x => typeof x !== "undefined"));
 				// results = uniq(results);
 				cb(null, results);
 			} else if (result.status === 404) {

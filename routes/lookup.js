@@ -2,7 +2,8 @@ let express = require('express');
 let async = require('async');
 let get = {
 	synonyms: require('../input/synonyms'),
-	poems: require('../input/poems')
+	poems: require('../input/poems'),
+	rhymes: require('../input/rhymes')
 };
 let router = express.Router();
 
@@ -12,6 +13,7 @@ router.get('/:word', function(req, res, next) {
 	async.parallel({
 		synonyms: get.synonyms.bind(null, word),
 		poems: get.poems.bind(null, word),
+		rhymes: get.rhymes.bind(null, word),
 		two: function(callback) {
 			setTimeout(function() {
 				callback(null, 2);
@@ -32,18 +34,7 @@ router.get('/:word', function(req, res, next) {
 					'https://images.unsplash.com/photo-1487235829740-e0ac5a286e1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=310f7bfbbc76086f8259a5d197fcffb4&auto=format&fit=crop&w=1648&q=80',
 					'https://images.unsplash.com/photo-1487235829740-e0ac5a286e1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=310f7bfbbc76086f8259a5d197fcffb4&auto=format&fit=crop&w=1648&q=80'
 				],
-				rhymes: [
-					'of',
-					'above',
-					'dove',
-					'shove',
-					'glove',
-					'thereof',
-					'belove',
-					'labov',
-					'in terms of',
-					'gov'
-				],
+				rhymes: results.rhymes,
 				poems: results.poems
 				// 	`I burned with love in
 				// 	empty rooms, I sternly turned
