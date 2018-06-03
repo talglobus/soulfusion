@@ -9,6 +9,7 @@ let router = express.Router();
 
 /* GET users listing. */
 router.get('/:word', function(req, res, next) {
+	req.header('Access-Control-Allow-Origin: *');
 	let word = req.params.word || "random";		// TODO: Fix this
 	async.parallel({
 		synonyms: get.synonyms.bind(null, word),
