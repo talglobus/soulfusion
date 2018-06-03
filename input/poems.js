@@ -9,10 +9,9 @@ module.exports = (word, cb) => {
 		.header("X-Mashape-Key", "uwLQtm1hwMmshgFUzTOXZuxE6ynXp1GnZCnjsnEufzrXKTcDN9")
 		.end(function (result) {
 			if (result.status === 200 && result.ok && !result.error) {
-				console.log(result.body);
-				let results = result.body;
+				let results = result.body
 						// .map(x => x.titles)
-					// .filter(x => x.lines.length < 16);
+					.filter(x => x.lines.length < 16);
 				// results = uniq(results);
 				cb(null, results);
 			} else if (result.status === 404) {
