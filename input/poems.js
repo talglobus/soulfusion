@@ -3,6 +3,7 @@
  */
 
 let unirest = require('unirest');
+let isProfane = require('../utils/isProfane');
 
 module.exports = (word, cb) => {
 	unirest.get("https://thundercomb-poetry-db-v1.p.mashape.com/title/" + word)
@@ -11,7 +12,8 @@ module.exports = (word, cb) => {
 			if (result.status === 200 && result.ok && !result.error) {
 				let results = result.body
 						// .map(x => x.titles)
-					.filter(x => x.lines.length < 16);
+					.filter(x => x.lines.length < 16)
+					.filter(poem => poem.lines.filter(line => !isProfane(line)).length === poem.lines.length);
 				// results = uniq(results);
 				cb(null, results);
 			} else if (result.status === 404) {
