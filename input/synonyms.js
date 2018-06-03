@@ -3,6 +3,7 @@
  */
 
 let unirest = require('unirest');
+let isProfane = require('../utils/isProfane');
 
 let uniq = a => {
 	let prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
@@ -26,7 +27,8 @@ module.exports = (word, cb) => {
 				results = results
 					.concat(...result.body.results
 						.map(x => x.synonyms)
-						.filter(x => typeof x !== "undefined"));
+						.filter(x => typeof x !== "undefined"))
+					.filter(x => !isProfane(x));
 				results = uniq(results);
 				cb(null, results);
 			} else if (result.status === 404) {
