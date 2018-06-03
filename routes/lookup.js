@@ -3,7 +3,8 @@ let async = require('async');
 let get = {
 	synonyms: require('../input/synonyms'),
 	poems: require('../input/poems'),
-	rhymes: require('../input/rhymes')
+	rhymes: require('../input/rhymes'),
+	images: require('../input/images')
 };
 let router = express.Router();
 
@@ -15,6 +16,7 @@ router.get('/:word', function(req, res, next) {
 		synonyms: get.synonyms.bind(null, word),
 		poems: get.poems.bind(null, word),
 		rhymes: get.rhymes.bind(null, word),
+		images: get.images.bind(null, word),
 		two: function(callback) {
 			setTimeout(function() {
 				callback(null, 2);
@@ -30,11 +32,7 @@ router.get('/:word', function(req, res, next) {
 					"I love you",
 					"It is my lady. Oh, it is my love"
 				],
-				images: [
-					'https://images.unsplash.com/photo-1487235829740-e0ac5a286e1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=310f7bfbbc76086f8259a5d197fcffb4&auto=format&fit=crop&w=1648&q=80',
-					'https://images.unsplash.com/photo-1487235829740-e0ac5a286e1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=310f7bfbbc76086f8259a5d197fcffb4&auto=format&fit=crop&w=1648&q=80',
-					'https://images.unsplash.com/photo-1487235829740-e0ac5a286e1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=310f7bfbbc76086f8259a5d197fcffb4&auto=format&fit=crop&w=1648&q=80'
-				],
+				images: results.images,
 				rhymes: results.rhymes,
 				poems: results.poems
 				// 	`I burned with love in
