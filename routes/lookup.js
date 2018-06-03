@@ -28,9 +28,6 @@ router.get('/:word', function(req, res, next) {
 			data: {
 				synonyms: results.synonyms,
 				quotes: [
-					"love is blind",
-					"I love you",
-					"It is my lady. Oh, it is my love"
 				],
 				images: results.images,
 				rhymes: results.rhymes,
